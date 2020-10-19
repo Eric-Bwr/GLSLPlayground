@@ -7,7 +7,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 set(CMAKE_CXX_STANDARD 20)
 
-file(GLOB_RECURSE SOURCE_FILES "GraphicsSystem/*.cpp" "GraphicsSystem/*.h")
+file(GLOB_RECURSE SOURCE_FILES "GLSLPlayground/*.cpp" "GLSLPlayground/*.h")
 
 set(dir ${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -17,7 +17,7 @@ include_directories(${PROJECT_NAME} "Dependencies/MathExtension/include")
 include_directories(${PROJECT_NAME} "Dependencies/GLFW/include")
 include_directories(${PROJECT_NAME})
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES} GraphicsSystem/Ui/UiComponents/UiHeader.cpp GraphicsSystem/Ui/UiComponents/UiHeader.h GraphicsSystem/Ui/UiComponents/LineGrid/Line/LineManager.cpp GraphicsSystem/Ui/UiComponents/LineGrid/Line/LineManager.h GraphicsSystem/Ui/UiComponents/LineGrid/Line/UiLine.cpp GraphicsSystem/Ui/UiComponents/LineGrid/Line/UiLine.h GraphicsSystem/Ui/UiComponents/LineGrid/Particle/ParticleManager.cpp GraphicsSystem/Ui/UiComponents/LineGrid/Particle/ParticleManager.h GraphicsSystem/Ui/UiComponents/LineGrid/Particle/Particle.cpp GraphicsSystem/Ui/UiComponents/LineGrid/Particle/Particle.h GraphicsSystem/Ui/UiComponents/UiLineGrid.cpp GraphicsSystem/Ui/UiComponents/UiLineGrid.h GraphicsSystem/Ui/UiElements/UiElement.cpp)
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME}
         ${CMAKE_CURRENT_LIST_DIR}/Dependencies/GLFW/libglfw3.a
