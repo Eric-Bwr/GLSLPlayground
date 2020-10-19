@@ -1,10 +1,6 @@
 #include "WindowCallback.h"
 
-#include "../Renderer/MasterRenderer.h"
-
-bool showHitBox = true;
 bool showMouseCoords = false;
-bool boxMode = false;
 bool wireframe = true;
 
 WindowCallback::WindowCallback(GLFWwindow* window) {
@@ -22,18 +18,8 @@ WindowCallback::WindowCallback(GLFWwindow* window) {
 }
 
 void WindowCallback::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods){
-    MasterRenderer::keyInput(window, key, scancode, action, mods);
-    if(key == GLFW_KEY_H && action == GLFW_PRESS){
-        showHitBox = !showHitBox;
-        MasterRenderer::getWindowManager()->showHitBoxes(showHitBox);
-    }
     if(key == GLFW_KEY_M && action == GLFW_PRESS){
         showMouseCoords = !showMouseCoords;
-    }
-    if(key == GLFW_KEY_B && action == GLFW_PRESS){
-        boxMode = !boxMode;
-        MasterRenderer::getWindowManager()->getWindow(window)->windowContainer->textShader->bind();
-        MasterRenderer::getWindowManager()->getWindow(window)->windowContainer->textShader->setUniformBool("boxMode", boxMode);
     }
     if(key == GLFW_KEY_W && action == GLFW_PRESS){
         wireframe = !wireframe;
@@ -46,36 +32,22 @@ void WindowCallback::keyCallback(GLFWwindow* window, int key, int scancode, int 
 }
 
 void WindowCallback::charCallback(GLFWwindow* window, unsigned int character){
-    MasterRenderer::charInput(window, character);
 }
 
 void WindowCallback::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods){
-    MasterRenderer::mouseButtonInput(window, button,action,mods);
 }
 
 void WindowCallback::mousePositionCallback(GLFWwindow* window, double x, double y){
-    MasterRenderer::mousePositionInput(window, x, y);
-    if(showMouseCoords)
-        std::cout << "X: " << x << " | Y: " << y  << std::endl;
+
 }
 
 void WindowCallback::mouseWheelCallback(GLFWwindow* window, double xOffset, double yOffset){
-    MasterRenderer::mouseWheelInput(window, xOffset, yOffset);
+
 }
 
 void WindowCallback::framebufferSizeCallback(GLFWwindow* glfWwindow, int width, int height){
-    MasterRenderer::framebufferSizeInput(glfWwindow, width, height);
-    auto window = MasterRenderer::getWindowManager()->getWindow(glfWwindow);
-    height -= window->getHeader()->getHeight();
-    for(UiElement* element : *window->elements){
-        element->updateConstraints(width, height);
-        if(element->type == UI_SLIDER){
-            ((UiSlider*)element)->updateSliderConstraints(0, 0);
-        }
-        if(element->type == UI_TEXT_BUTTON){
-            ((UiButton*)element)->updateText();
-        }
-    }
+    glfwMakeContextCurrent(glfWwindow);
+    glViewport(0, 0, width, height);
 }
 
 void WindowCallback::windowPosCallback(GLFWwindow* window, int x, int y){

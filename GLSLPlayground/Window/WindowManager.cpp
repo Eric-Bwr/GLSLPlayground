@@ -1,9 +1,7 @@
 #include <algorithm>
 #include "WindowManager.h"
-#include "../Renderer/MasterRenderer.h"
 
-WindowManager::WindowManager(){
-    MasterRenderer(this);
+WindowManager::WindowManager() {
 }
 
 void WindowManager::addWindow(Window *window) {
@@ -36,15 +34,12 @@ void WindowManager::update() {
 
 void WindowManager::render() {
     for(auto window : windows){
-        MasterRenderer::render(window);
     }
 }
 
 void WindowManager::sortUiElements() {
     for(Window* window : windows){
-       std::sort(window->elements->begin(),window->elements->end(),[](UiElement* a,UiElement* b){
-            return a->getOrder() < b->getOrder();
-       });
+
     }
 }
 
@@ -69,7 +64,6 @@ Window* WindowManager::getWindow(GLFWwindow* glfwWindow){
 
 void WindowManager::showHitBoxes(bool show){
     for(auto window : windows){
-        window->showHitBoxes(show);
     }
 }
 

@@ -12,9 +12,5 @@ public:
     Matrix4f ortho;
     VertexArrayObject* vao;
     VertexBufferObject* vbo;
-    Shader* rectangleShader;
-    Shader* imageShader;
-    Shader* buttonShader;
-    Shader* textShader;
-    Shader* hitBoxShader;
+    Shader* shader;
 };

@@ -3,14 +3,8 @@
 #include <Texture.h>
 #include <GLFW/glfw3.h>
 #include "WindowSettings.h"
-#include "../Ui/UiElements/UiElement.h"
-#include "../Ui/UiComponents/UiSlider.h"
-#include "../Ui/UiComponents/UiButton.h"
-#include "../Ui/UiComponents/UiPanel.h"
 #include "WindowContainer.h"
 #include "WindowCallback.h"
-#include "../Ui/UiComponents/UiTextField.h"
-#include "../Ui/UiComponents/UiHeader.h"
 
 #define FAILED_TO_LOAD_ICON_DATA -1
 #define FAILED_TO_LOCATE_ICON_DATA -2
@@ -30,28 +24,20 @@ public:
     inline GLFWwindow* getWindow(){ return window; }
     inline char* getGLVersion(){ return glVersion; }
     inline int getErrorCode() const{ return errorCode; }
-    void addElement(UiElement* element);
-    void showHitBoxes(bool show) const;
-    inline void setHitBoxColor(Color* hitBoxColor) { this->hitBoxColor = hitBoxColor; }
     inline WindowSettings* getWindowSettings() { return windowSettings; };
     WindowCallback* windowCallback;
     WindowContainer* windowContainer;
-    std::vector<UiElement*>* elements;
-    void setHeader(UiHeader* header) { this->header = header; }
-    inline UiHeader* getHeader(){ return header; }
-    inline UiRectangle* getBody(){ return body; }
+
+
     inline const GLFWvidmode* getMonitorInformation(){return vidmode;}
 private:
     GLFWwindow* window;
     const GLFWvidmode *vidmode;
     WindowSettings* windowSettings;
-    Color* hitBoxColor = nullptr;
     void initHints();
     void constructWindow();
     void setIcon();
     char* glVersion;
     bool windowShouldClose = false;
     int errorCode = 0;
-    UiHeader* header;
-    UiRectangle* body;
 };

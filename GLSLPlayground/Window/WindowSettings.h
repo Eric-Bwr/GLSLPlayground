@@ -1,8 +1,5 @@
 #pragma once
 
-#include "../Ui/UiUtil/UiColor.h"
-
-
 enum WindowMode{
     WINDOW_MODE_FULLSCREEN,WINDOW_MODE_FULLSCREEN_BORDERLESS,WINDOW_MODE_NORMAL,WINDOW_MODE_BORDERLESS,WINDOW_MODE_MAX_SIZE,WINDOW_MODE_BORDERLESS_MAX_SIZE
 };
@@ -27,7 +24,6 @@ public:
     inline void setCheckVersion(bool checkVersion){this->checkVersion = checkVersion;}
     inline void setIcon(char* path){this->icon = path;}
     inline void setShouldAutoScale(bool autoScale){this->autoScale = autoScale;}
-    inline void setBackgroundColor(Color* color){this->background = color;}
     inline void setSampleSize(int sampleSize){this->sampleSize = sampleSize;}
     inline void setShouldMultiSample(bool sample){this->sample = sample;}
     inline void setTransparent(bool transparent){this->transparent = transparent;}
@@ -49,7 +45,6 @@ public:
     inline int getProfile(){return profile;}
     inline bool shouldCheckVersion(){return checkVersion;}
     inline char* getIcon(){return icon;}
-    inline Color* getBackgrondColor(){return background;}
     inline int getSampleSize(){return sampleSize;}
     inline bool shouldMultiSample(){return sample;}
     inline bool isTransparent(){return transparent;}
@@ -65,7 +60,6 @@ private:
     int minor = 6;
     int profile = 0x00032001;
     char* icon = (char*) "";
-    Color* background = new Color("#2e2e2e");
     int sampleSize = 0;
     bool transparent = true,
     floating = false,
