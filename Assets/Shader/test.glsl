@@ -30,14 +30,14 @@ float drawLine(vec2 p1, vec2 p2) {
 
 float circle(vec2 position, float radius){
     position.x -= sin(time) / 8;
-    position.y -= cos(time) / 8;
+    position.y -= tan(time) / 8;
 return smoothstep(radius,length(position - vec2(0.5)), sin(time) /2);
 }
 
 void main(){
     vec2 fragPos = (gl_FragCoord.xy / resolution);
 
-    float p = circle(fragPos, 0.45);
+    float p = circle(fragPos, 0.4);
 
     gl_FragColor = vec4(vec3(p), 1.0f);
 

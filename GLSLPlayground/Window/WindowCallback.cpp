@@ -1,25 +1,35 @@
+#include <iostream>
 #include "WindowCallback.h"
+#include "Window.h"
 
+Window* window;
 bool showMouseCoords = false;
 bool wireframe = true;
 
-WindowCallback::WindowCallback(GLFWwindow* window) {
-    glfwMakeContextCurrent(window);
-    glfwSetKeyCallback(window, keyCallback);
-    glfwSetCharCallback(window, charCallback);
-    glfwSetMouseButtonCallback(window, mouseButtonCallback);
-    glfwSetCursorPosCallback(window, mousePositionCallback);
-    glfwSetScrollCallback(window, mouseWheelCallback);
-    glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
-    glfwSetWindowPosCallback(window, windowPosCallback);
-    glfwSetDropCallback(window, dropCallback);
-    glfwSetWindowFocusCallback(window, windowFocusCallback);
-    glfwSetWindowMaximizeCallback(window, windowMaximizeCallback);
+WindowCallback::WindowCallback(Window* windowObj) {
+    window = windowObj;
+    glfwMakeContextCurrent(window->getWindow());
+    glfwSetKeyCallback(window->getWindow(), keyCallback);
+    glfwSetCharCallback(window->getWindow(), charCallback);
+    glfwSetMouseButtonCallback(window->getWindow(), mouseButtonCallback);
+    glfwSetCursorPosCallback(window->getWindow(), mousePositionCallback);
+    glfwSetScrollCallback(window->getWindow(), mouseWheelCallback);
+    glfwSetFramebufferSizeCallback(window->getWindow(), framebufferSizeCallback);
+    glfwSetWindowPosCallback(window->getWindow(), windowPosCallback);
+    glfwSetDropCallback(window->getWindow(), dropCallback);
+    glfwSetWindowFocusCallback(window->getWindow(), windowFocusCallback);
+    glfwSetWindowMaximizeCallback(window->getWindow(), windowMaximizeCallback);
 }
 
-void WindowCallback::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods){
+void WindowCallback::keyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods){
     if(key == GLFW_KEY_M && action == GLFW_PRESS){
         showMouseCoords = !showMouseCoords;
+    }
+    if(key == GLFW_KEY_RIGHT_SHIFT && action == GLFW_PRESS){
+        glfwMakeContextCurrent(glfwWindow);
+        window->windowContainer->shader->unbind();
+        window->windowContainer->shader->reload();
+        std::cout << window->windowContainer->shader->getErrorMessage() << "\n";
     }
     if(key == GLFW_KEY_W && action == GLFW_PRESS){
         wireframe = !wireframe;

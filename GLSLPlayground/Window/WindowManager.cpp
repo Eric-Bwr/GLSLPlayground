@@ -1,11 +1,10 @@
 #include <algorithm>
 #include "WindowManager.h"
 
-WindowManager::WindowManager() {
-}
+WindowManager::WindowManager() = default;
 
 void WindowManager::addWindow(Window *window) {
-    window->windowCallback = new WindowCallback(window->getWindow());
+    window->windowCallback = new WindowCallback(window);
     window->windowContainer = new WindowContainer(window->getWindow(), window->getWindowSettings()->getWidth(), window->getWindowSettings()->getHeight());
     windows.emplace_back(window);
 }

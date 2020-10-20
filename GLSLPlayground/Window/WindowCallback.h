@@ -3,9 +3,11 @@
 #include <OpenGL.h>
 #include <GLFW/glfw3.h>
 
+class Window;
+
 class WindowCallback{
 public:
-    explicit WindowCallback(GLFWwindow* window);
+    explicit WindowCallback(Window* window);
 private:
     static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
     static void charCallback(GLFWwindow* window, unsigned int character);

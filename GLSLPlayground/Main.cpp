@@ -36,10 +36,10 @@ int main(){
     while(manager->hasWindows()){
         auto t_start = std::chrono::high_resolution_clock::now();
 
-
         shader->bind();
         shader->setUniform1f("time", glfwGetTime());
         window->windowContainer->vao->bind();
+        shader->setUniform2f("resolution",windowSettings->getWidth(),windowSettings->getHeight());
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
         auto t_end = std::chrono::high_resolution_clock::now();
