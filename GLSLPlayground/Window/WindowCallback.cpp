@@ -25,12 +25,6 @@ void WindowCallback::keyCallback(GLFWwindow* glfwWindow, int key, int scancode, 
     if(key == GLFW_KEY_M && action == GLFW_PRESS){
         showMouseCoords = !showMouseCoords;
     }
-    if(key == GLFW_KEY_RIGHT_SHIFT && action == GLFW_PRESS){
-        glfwMakeContextCurrent(glfwWindow);
-        window->windowContainer->shader->unbind();
-        window->windowContainer->shader->reload();
-        std::cout << window->windowContainer->shader->getErrorMessage() << "\n";
-    }
     if(key == GLFW_KEY_W && action == GLFW_PRESS){
         wireframe = !wireframe;
         if(wireframe){

@@ -4,6 +4,7 @@
 #include "Window/Window.h"
 #include "Window/WindowManager.h"
 #include "Buffer.h"
+#include <windows.h>
 
 int main(){
     WindowSettings* windowSettings = new WindowSettings();
@@ -36,17 +37,24 @@ int main(){
     while(manager->hasWindows()){
         auto t_start = std::chrono::high_resolution_clock::now();
 
-        shader->bind();
-        shader->setUniform1f("time", glfwGetTime());
-        window->windowContainer->vao->bind();
-        shader->setUniform2f("resolution",windowSettings->getWidth(),windowSettings->getHeight());
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        if(!shader->hasError()) {
+            shader->bind();
+            shader->setUniform1f("time", glfwGetTime());
+            window->windowContainer->vao->bind();
+            shader->setUniform2f("resolution", windowSettings->getWidth(), windowSettings->getHeight());
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        }
 
         auto t_end = std::chrono::high_resolution_clock::now();
         double deltaTime = std::chrono::duration<double, std::milli>(t_end-t_start).count();
         deltaTime *= window->getMonitorInformation()->refreshRate;
         deltaTime /= 1000;
         manager->update();
+        if((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(0x53) & 0x8000)){
+            window->windowContainer->shader->unbind();
+            window->windowContainer->shader->reload();
+            std::cout << window->windowContainer->shader->getErrorMessage() << "\n";
+        }
     }
     glfwTerminate();
     manager->destroy();
